@@ -3,7 +3,6 @@ const express = require('express');
 const { Sequelize, DataTypes } = require('sequelize');
 const cloudinary = require('cloudinary').v2;
 
-// Initialize Express app
 const app = express();
 app.use(express.json());
 
@@ -49,7 +48,7 @@ app.post('/posts', async (req, res) => {
 
     // Upload image to Cloudinary
     const result = await cloudinary.uploader.upload(req.body.image, {
-      folder: 'wellnessZ', // Optional: Specify a folder in Cloudinary to store images
+      folder: 'wellnessZ', 
     });
 
     // Create post with imageUrl
@@ -67,7 +66,6 @@ app.post('/posts', async (req, res) => {
   }
 });
 
-// Route to get all posts with options
 app.get('/posts', async (req, res) => {
     try {
       // Pagination options
@@ -84,7 +82,6 @@ app.get('/posts', async (req, res) => {
       // Tag filtering option
       const tag = req.query.tag || ''; // Tag to filter posts by
   
-      // Database query options based on the provided options
       const queryOptions = {
         order: [[sortBy, sortOrder]],
         offset: (page - 1) * pageSize,
@@ -117,8 +114,6 @@ app.get('/posts', async (req, res) => {
     }
   });
   
-
-// Start the server
 const PORT = process.env.PORT || 3000;
 sequelize.sync().then(() => {
   app.listen(PORT, () => {
